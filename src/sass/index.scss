@@ -1,2 +1,12 @@
 @import './common';
-
+.search-form {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.form {
+  display: flex;
+  background-color: rgb(52, 64, 180);
+  box-shadow: 0 10px 10px -5px rgba(0, 0, 0, 0.3);;
+}
