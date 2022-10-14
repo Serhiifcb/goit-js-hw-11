@@ -1,4 +1,6 @@
 import Notiflix from 'notiflix';
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 const axios = require('axios').default;
 
 const refSearchForm = document.querySelector('#search-form');
@@ -85,6 +87,9 @@ function fetchPictures(searchInput) {
       } else {
         refLoadMore.classList.remove('visually-hidden');
       }
+      if (page === 1) {
+        Notiflix.Notify.info(`Hooray! We found ${data.totalHits} images.`);
+      }
     })
     .catch(error => {
       console.log(error);
@@ -108,3 +113,12 @@ async function getpictures() {
     console.log(error);
   }
 }
+
+const lightbox = new SimpleLightbox('.gallery img', {
+  captions: true,
+  captionSelector: 'img',
+  captionType: 'attr',
+  captionsData: 'alt',
+  captionPosition: 'bottom',
+  captionDelay: 250,
+});
