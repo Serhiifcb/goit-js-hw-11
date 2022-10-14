@@ -34,7 +34,7 @@ p, ul, li {
 .gallery {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  // justify-content: center;
   margin: -10px;
 
 }
@@ -52,4 +52,28 @@ img {
 }
 .photo {
   height: 200px;
+}
+.load-more {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: rgb(52, 64, 180);
+  color: white;
+  border-radius: 4px;
+  box-shadow: 0px 4px 4px rgb(0 0 0 / 15%);
+  border-color: rgb(52, 64, 180);;
+}
+.visually-hidden {
+  position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    white-space: nowrap;
+    clip-path: inset(100%);
+    clip: rect(0 0 0 0);
+    overflow: hidden;
 }
