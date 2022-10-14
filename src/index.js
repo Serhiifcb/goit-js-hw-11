@@ -1,4 +1,6 @@
 import Notiflix from 'notiflix';
+const axios = require('axios').default;
+
 const refSearchForm = document.querySelector('#search-form');
 const refGallery = document.querySelector('.gallery');
 const refLoadMore = document.querySelector('.load-more');
@@ -93,3 +95,16 @@ function loadMore() {
   page += 1;
   fetchPictures(searchInput);
 }
+
+// async function getpictures() {
+//   try {
+//     console.log('gasdfasdf');
+//     const response = await axios.get(
+//       `https://pixabay.com/api/?key=30577922-67600fce07e41f9eca16e67a5&q=cat&image_type=photo&orientation=horizontal&safesearch=true&page=${page}&per_page=${perPage}`
+//     );
+//     console.log(response);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
+// getpictures();
