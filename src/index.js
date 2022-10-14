@@ -24,48 +24,36 @@ function fetchPictures(searchInput) {
     })
     .then(data => {
       console.log(data);
-      // if (data.length > 10) {
-      //   Notiflix.Notify.info(
-      //     'Too many matches found. Please enter a more specific name.'
-      //   );
-      //   return;
-      // }
-      // if (data.length === 1) {
-      //   const markupInfo = `
-      //     <div class="flag-and-name">
-      //     <img src="${data[0].flags.svg}" class="flag">
-      //     <div class="country-item">${data[0].name}</div>
-      //     </div>
-      //     <div class="country-item"><p class="item-name">Capital: </p>${data[0].capital}</div>
-      //     <div class="country-item"><p class="item-name">Population: </p>${data[0].population}</div>
-      //     `;
-      //   let markupLanguage = '';
-      //   if (data[0].languages.length === 1) {
-      //     markupLanguage = `
-      //       <div class="country-item">
-      //         <p class="item-name">Languages: </p>${data[0].languages[0].name}
-      //       </div>
-      //       `;
-      //     refInfo.innerHTML = markupInfo + markupLanguage;
-      //   } else {
-      //     markupLanguage = `
-      //       <div class="country-item">
-      //         <p class="item-name">Languages: </p>${data[0].languages[0].name}
-      //       `;
-      //     for (let k = 1; k < data[0].languages.length; k++) {
-      //       markupLanguage = markupLanguage + ', ' + data[0].languages[k].name;
-      //     }
-      //     refInfo.innerHTML = markupInfo + markupLanguage + `</div>`;
-      //   }
-      // } else {
-      //   const markupList = data
-      //     .map(
-      //       country =>
-      //         `<li class="list-item"><img src="${country.flags.svg}" class="flag-list">${country.name}</li>`
-      //     )
-      //     .join('');
-      //   refList.innerHTML = markupList;
-      // }
+      refGallery.innerHTML = '';
+      const markupList = data.hits
+        .map(
+          picture =>
+            `<div class="photo-card">
+              <div class="photo">
+                <img src="${picture.webformatURL}" alt="${picture.tags}" loading="lazy" />
+              </div>
+              <div class="info">
+                <p class="info-item">
+                  <b>Likes</b>
+                  <span>${picture.likes}</span>
+                </p>
+                <p class="info-item">
+                  <b>Views</b>
+                  <span>${picture.views}</span>
+                </p>
+                <p class="info-item">
+                  <b>Comments</b>
+                  <span>${picture.comments}</span>
+                </p>
+                <p class="info-item">
+                  <b>Downloads</b>
+                  <span>${picture.downloads}</span>
+                </p>
+              </div>
+            </div>`
+        )
+        .join('');
+      refGallery.innerHTML = markupList;
     })
     .catch(error => {
       Notiflix.Notify.failure('Sorry, something is wrong. Please try again.');
