@@ -55,7 +55,9 @@ function fetchPictures(searchInput) {
           picture =>
             `<div class="photo-card">
               <div class="photo">
+                <a href="${picture.largeImageURL}">
                 <img src="${picture.webformatURL}" alt="${picture.tags}" loading="lazy" />
+                </a>
               </div>
               <div class="info">
                 <p class="info-item">
@@ -114,7 +116,7 @@ async function getpictures() {
   }
 }
 
-const lightbox = new SimpleLightbox('.gallery img', {
+const lightbox = new SimpleLightbox('.gallery a', {
   captions: true,
   captionSelector: 'img',
   captionType: 'attr',
@@ -122,3 +124,8 @@ const lightbox = new SimpleLightbox('.gallery img', {
   captionPosition: 'bottom',
   captionDelay: 250,
 });
+
+refGallery.addEventListener('click', makeLightbox, { once: true });
+function makeLightbox(event) {
+  event.preventDefault();
+}
