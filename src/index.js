@@ -1,7 +1,7 @@
 import Notiflix from 'notiflix';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
-import { getPictures } from './js/getPictures';
+import { getPictures } from './js/getpictures';
 
 const axios = require('axios').default;
 
@@ -13,10 +13,10 @@ const perPage = 40;
 let searchInput;
 let totalShown;
 
-refSearchForm.addEventListener('submit', handleSubmit);
+refSearchForm.addEventListener('submit', searchSubmit);
 refLoadMore.addEventListener('click', loadMore);
 
-function handleSubmit(event) {
+function searchSubmit(event) {
   refLoadMore.classList.add('visually-hidden');
   totalShown = 0;
   page = 1;
@@ -28,10 +28,10 @@ function handleSubmit(event) {
     return;
   }
   refGallery.innerHTML = '';
-  markupPictures(searchInput);
+  showPictures(searchInput);
 }
 
-function markupPictures(searchInput) {
+function showPictures(searchInput) {
   getPictures(searchInput, page, perPage)
     .then(data => {
       if (data.totalHits === 0) {
@@ -90,7 +90,6 @@ function markupPictures(searchInput) {
       }
     })
     .catch(error => {
-      console.log('Error of fetchpictures');
       console.log(error);
       Notiflix.Notify.failure('Sorry, something is wrong. Please try again.');
     });
@@ -98,5 +97,5 @@ function markupPictures(searchInput) {
 
 function loadMore() {
   page += 1;
-  markupPictures(searchInput);
+  showPictures(searchInput);
 }

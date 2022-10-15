@@ -6,7 +6,6 @@ export async function getPictures(searchInput, page, perPage) {
     );
     return response.data;
   } catch (error) {
-    console.log('Error of async await');
     console.log(error);
   }
 }
