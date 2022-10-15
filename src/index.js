@@ -1,7 +1,7 @@
 import Notiflix from 'notiflix';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
-import { getPictures } from './js/getpictures';
+import { getPictures } from './js/getPictures';
 import { markupPictures } from './js/markuppictures';
 
 const axios = require('axios').default;
