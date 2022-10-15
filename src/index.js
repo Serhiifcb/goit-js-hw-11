@@ -30,12 +30,6 @@ function handleSubmit(event) {
 }
 
 function fetchPictures(searchInput) {
-  // fetch(
-  //   `https://pixabay.com/api/?key=30577922-67600fce07e41f9eca16e67a5&q=${searchInput}&image_type=photo&orientation=horizontal&safesearch=true&page=${page}&per_page=${perPage}`
-  // )
-  //   .then(response => {
-  //     return response.json();
-  //   })
   getpictures()
     .then(data => {
       if (data.totalHits === 0) {
@@ -46,14 +40,12 @@ function fetchPictures(searchInput) {
       }
 
       totalShown += data.hits.length;
-      console.log(data);
-      console.log(page);
-      console.log(totalShown);
 
       const markupList = data.hits
         .map(
           picture =>
-            `<div class="photo-card">
+            `
+            <div class="photo-card">
               <div class="photo">
                 <a href="${picture.largeImageURL}">
                 <img src="${picture.webformatURL}" alt="${picture.tags}" loading="lazy" />
@@ -77,7 +69,8 @@ function fetchPictures(searchInput) {
                   <span>${picture.downloads}</span>
                 </p>
               </div>
-            </div>`
+            </div>
+            `
         )
         .join('');
       refGallery.insertAdjacentHTML('beforeend', markupList);
@@ -106,7 +99,6 @@ function loadMore() {
 
 async function getpictures() {
   try {
-    // console.log('gasdfasdf');
     const response = await axios.get(
       `https://pixabay.com/api/?key=30577922-67600fce07e41f9eca16e67a5&q=${searchInput}&image_type=photo&orientation=horizontal&safesearch=true&page=${page}&per_page=${perPage}`
     );
@@ -116,7 +108,7 @@ async function getpictures() {
   }
 }
 
-const lightbox = new SimpleLightbox('.gallery a', {
+let lightbox = new SimpleLightbox('.gallery a', {
   captions: true,
   captionSelector: 'img',
   captionType: 'attr',
@@ -124,8 +116,3 @@ const lightbox = new SimpleLightbox('.gallery a', {
   captionPosition: 'bottom',
   captionDelay: 250,
 });
-
-refGallery.addEventListener('click', makeLightbox, { once: true });
-function makeLightbox(event) {
-  event.preventDefault();
-}
