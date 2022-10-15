@@ -66,4 +66,5 @@ function showPictures(searchInput) {
 function loadMore() {
   page += 1;
   showPictures(searchInput);
+  lightbox.refresh();
 }
