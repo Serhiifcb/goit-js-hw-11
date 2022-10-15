@@ -1,6 +1,8 @@
 import Notiflix from 'notiflix';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
+import { getPictures } from './js/getPictures';
+
 const axios = require('axios').default;
 
 const refSearchForm = document.querySelector('#search-form');
@@ -26,11 +28,11 @@ function handleSubmit(event) {
     return;
   }
   refGallery.innerHTML = '';
-  fetchPictures(searchInput);
+  markupPictures(searchInput);
 }
 
-function fetchPictures(searchInput) {
-  getpictures()
+function markupPictures(searchInput) {
+  getPictures(searchInput, page, perPage)
     .then(data => {
       if (data.totalHits === 0) {
         Notiflix.Notify.info(
@@ -74,6 +76,7 @@ function fetchPictures(searchInput) {
         )
         .join('');
       refGallery.insertAdjacentHTML('beforeend', markupList);
+      let lightbox = new SimpleLightbox('.gallery a');
       if (totalShown === data.totalHits) {
         refLoadMore.classList.add('visually-hidden');
         Notiflix.Notify.info(
@@ -87,6 +90,7 @@ function fetchPictures(searchInput) {
       }
     })
     .catch(error => {
+      console.log('Error of fetchpictures');
       console.log(error);
       Notiflix.Notify.failure('Sorry, something is wrong. Please try again.');
     });
@@ -94,25 +98,5 @@ function fetchPictures(searchInput) {
 
 function loadMore() {
   page += 1;
-  fetchPictures(searchInput);
+  markupPictures(searchInput);
 }
-
-async function getpictures() {
-  try {
-    const response = await axios.get(
-      `https://pixabay.com/api/?key=30577922-67600fce07e41f9eca16e67a5&q=${searchInput}&image_type=photo&orientation=horizontal&safesearch=true&page=${page}&per_page=${perPage}`
-    );
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-let lightbox = new SimpleLightbox('.gallery a', {
-  captions: true,
-  captionSelector: 'img',
-  captionType: 'attr',
-  captionsData: 'alt',
-  captionPosition: 'bottom',
-  captionDelay: 250,
-});
