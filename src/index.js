@@ -2,9 +2,9 @@ import Notiflix from 'notiflix';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import { getPictures } from './js/getpictures';
+import { markupPictures } from './js/markuppictures';
 
 const axios = require('axios').default;
-
 const refSearchForm = document.querySelector('#search-form');
 const refGallery = document.querySelector('.gallery');
 const refLoadMore = document.querySelector('.load-more');
@@ -43,39 +43,7 @@ function showPictures(searchInput) {
 
       totalShown += data.hits.length;
 
-      const markupList = data.hits
-        .map(
-          picture =>
-            `
-            <div class="photo-card">
-              <div class="photo">
-                <a href="${picture.largeImageURL}">
-                <img src="${picture.webformatURL}" alt="${picture.tags}" loading="lazy" />
-                </a>
-              </div>
-              <div class="info">
-                <p class="info-item">
-                  <b>Likes</b>
-                  <span>${picture.likes}</span>
-                </p>
-                <p class="info-item">
-                  <b>Views</b>
-                  <span>${picture.views}</span>
-                </p>
-                <p class="info-item">
-                  <b>Comments</b>
-                  <span>${picture.comments}</span>
-                </p>
-                <p class="info-item">
-                  <b>Downloads</b>
-                  <span>${picture.downloads}</span>
-                </p>
-              </div>
-            </div>
-            `
-        )
-        .join('');
-      refGallery.insertAdjacentHTML('beforeend', markupList);
+      refGallery.insertAdjacentHTML('beforeend', markupPictures(data));
       let lightbox = new SimpleLightbox('.gallery a');
       if (totalShown === data.totalHits) {
         refLoadMore.classList.add('visually-hidden');
